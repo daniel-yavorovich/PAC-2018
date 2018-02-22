@@ -112,5 +112,9 @@ venv.bak/
 *.iml
 out
 gen
-*.txt
-*.json
+list_order.json
+servers_list.txt
+servers_used.json
+table_info.txt
+timing.txt
+TODO.txt
