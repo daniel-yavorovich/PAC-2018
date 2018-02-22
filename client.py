@@ -58,6 +58,8 @@ class TimeMeterClient:
         return new_data
 
     def __write_timing_data(self, data):
+        data = self.order_data_indices(data)
+
         timing_line = " ".join(data) + '\n'
 
         timing_file = open(TIMING_FILE_NAME, 'a+')
@@ -94,7 +96,7 @@ class TimeMeterClient:
         open(TABLE_INFO_FILE_NAME, 'w+').writelines(lines)
 
     def save_result(self, send_delay, receive_delay, total_delay):
-        data = [str(i) for i in self.order_data_indices([send_delay, receive_delay, total_delay])]
+        data = [str(i) for i in [send_delay, receive_delay, total_delay]]
 
         self.__write_timing_data(data)
         self.__write_table_info_data()
