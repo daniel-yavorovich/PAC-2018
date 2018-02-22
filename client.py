@@ -5,6 +5,8 @@ import asyncio
 import logging
 from decimal import Decimal, getcontext
 
+import os
+
 SERVER_ADDRESSES = [
     '104.196.126.59',
     '35.230.17.96',
@@ -22,10 +24,12 @@ SERVER_ADDRESSES = [
 SERVER_PORT = 9999
 DECIMAL_PREC = 8
 
-TIMING_FILE_NAME = 'timing.txt'
-TABLE_INFO_FILE_NAME = 'table_info.txt'
-LIST_ORDER_FILE_NAME = 'list_order.json'
-SERVERS_USED_FILE_NAME = 'servers_used.json'
+DATADIR = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data')
+
+TIMING_FILE_NAME = os.path.join(DATADIR, 'timing.txt')
+TABLE_INFO_FILE_NAME = os.path.join(DATADIR, 'table_info.txt')
+LIST_ORDER_FILE_NAME = os.path.join(DATADIR, 'list_order.json')
+SERVERS_USED_FILE_NAME = os.path.join(DATADIR, 'servers_used.json')
 
 
 class TimeMeterClient:
