@@ -1,0 +1,14 @@
+FROM python:3-onbuild
+
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -yq cron
+
+# Tuning cron
+RUN mkfifo --mode 0666 /var/log/cron.log
+RUN sed --regexp-extended --in-place \
+    's/^session\s+required\s+pam_loginuid.so$/session optional pam_loginuid.so/' \
+    /etc/pam.d/cron
+
+COPY deploy/bin/start-cron /usr/sbin/start-cron
+COPY deploy/etc/crontab.conf /etc/crontab
+
+CMD ["/usr/sbin/start-cron"]
