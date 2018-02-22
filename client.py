@@ -27,7 +27,7 @@ class TimeMeterClient:
     @property
     def list_order(self):
         try:
-            return json.load(open(LIST_ORDER_FILE_NAME, 'rb'))
+            return json.load(open(LIST_ORDER_FILE_NAME, 'r'))
         except:
             return [0, 1, 2]
 
@@ -115,7 +115,7 @@ class TimeMeterClient:
 
 def get_random_server():
     try:
-        addresses = json.load(open(SERVERS_USED_FILE_NAME, 'rb'))
+        addresses = json.load(open(SERVERS_USED_FILE_NAME, 'r'))
         assert len(addresses)
     except:
         addresses = random.sample(SERVER_ADDRESSES, len(SERVER_ADDRESSES))
