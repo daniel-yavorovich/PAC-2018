@@ -2,6 +2,7 @@ import time
 import json
 import random
 import asyncio
+import logging
 from decimal import Decimal, getcontext
 
 SERVER_ADDRESSES = [
@@ -48,6 +49,8 @@ class TimeMeterClient:
         timing_file.write(timing_line)
 
         timing_file.close()
+
+        logging.info('Write timing line: {line}'.format(line=timing_line.strip()))
 
     def __write_table_info_data(self):
         try:
@@ -106,7 +109,7 @@ class TimeMeterClient:
         self.transport.close()
 
     def error_received(self, exc):
-        print('Error received:', exc)
+        logging.error('Error received:', exc)
 
     def connection_lost(self, exc):
         loop = asyncio.get_event_loop()
@@ -128,6 +131,8 @@ def get_random_server():
 
 
 def main():
+    logging.basicConfig(level=logging.INFO)
+
     loop = asyncio.get_event_loop()
     connect = loop.create_datagram_endpoint(lambda: TimeMeterClient(loop),
                                             remote_addr=(get_random_server(), SERVER_PORT))
